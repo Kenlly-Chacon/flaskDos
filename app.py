@@ -10,7 +10,6 @@ from image_processing import load_ben_color
 def crear_app():
     app = Flask(__name__)
     CORS(app, resources={r"/upload": {"origins": "https://retinopatia-diabetica.netlify.app"}})
-    # CORS(app, resources={r"/upload": {"origins": "*"}})
 
     # Cargar el modelo
     model = load_model('modelo.keras')
@@ -54,7 +53,11 @@ def crear_app():
                 'message': predicted_class_name
             }
 
-            return jsonify(data)
+            # Agregar el encabezado CORS
+            response = jsonify(data)
+            response.headers.add('Access-Control-Allow-Origin', 'https://retinopatia-diabetica.netlify.app')
+
+            return response
         else:
             print('No se recibió ninguna imagen')
             return 'No se encontró ninguna imagen en la petición'
