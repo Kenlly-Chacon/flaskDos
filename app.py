@@ -3,13 +3,13 @@ from PIL import Image
 import numpy as np
 from tensorflow.keras.models import load_model
 import base64
-# from flask_cors import CORS
+from flask_cors import CORS
 import cv2
 from image_processing import load_ben_color
 
 def crear_app():
     app = Flask(__name__)
-    # CORS(app, resources={r"/upload": {"origins": "https://retinopatia-diabetica.netlify.app"}})
+    CORS(app, resources={r"/upload": {"origins": "https://retinopatia-diabetica.netlify.app"}})
     # CORS(app, resources={r"/upload": {"origins": "*"}})
 
     # Cargar el modelo
